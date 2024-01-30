@@ -188,7 +188,7 @@ def write_bp_routes(w, bp: str):
 
 from core import db
 
-{bp} = Blueprint("{bp}", __name__, template_folder="templates/auth")
+{bp} = Blueprint("{bp}", __name__, template_folder="templates/{bp}")
 
 
 @{bp}.route("/", methods=["GET", "POST"])
@@ -196,6 +196,9 @@ def index():
     return render_template("index.html", title="index")
 """
     )
+
+def write_bp_forms(w, bp:str):
+    w.write("# forms.py")
 
 
 def write_utils(w, *args):
@@ -294,22 +297,14 @@ def write_about_html(w, *args):
     )
 
 
-def write_login_html(w, *args):
+def write_bp_index_html(w, *args):
     w.write(
         """{% extends 'base.html' %}
 {% block content %}
-    <h1>Login</h1>
+    <h1>{{title}}</h1>
 {% endblock %}"""
     )
 
-
-def write_register_html(w, *args):
-    w.write(
-        """{% extends 'base.html' %}
-{% block content %}
-    <h1>Register</h1>
-{% endblock %}"""
-    )
 
 
 def write_main_css(w, *args):
